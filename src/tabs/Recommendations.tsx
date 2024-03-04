@@ -1,4 +1,5 @@
 import {
+  Button,
   Paper,
   Rating,
   Table,
@@ -25,7 +26,8 @@ export default function Recommendations() {
           <TableHead>
             <TableRow>
               <TableCell>Beer</TableCell>
-              <TableCell align="right">Rating</TableCell>
+              <TableCell align="right">Predicted rating</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -39,6 +41,9 @@ export default function Recommendations() {
                 </TableCell>
                 <TableCell align="right">
                   <Rating name={name} value={rating} readOnly precision={0.5} />
+                </TableCell>
+                <TableCell align="right">
+                  <Button variant="text">Rate</Button>
                 </TableCell>
               </TableRow>
             ))}

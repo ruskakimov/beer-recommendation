@@ -4,6 +4,8 @@ import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
+import Recommendations from "./tabs/Recommendations";
+import YourRatings from "./tabs/YourRatings";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -54,10 +56,10 @@ export default function App() {
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        Item One
+        <YourRatings />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Item Two
+        <Recommendations />
       </CustomTabPanel>
     </Container>
   );

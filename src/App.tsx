@@ -1,21 +1,9 @@
+import { Recommend, Stars } from "@mui/icons-material";
 import { Container, Tab } from "@mui/material";
 import Box from "@mui/material/Box";
-import Link from "@mui/material/Link";
 import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}.
-    </Typography>
-  );
-}
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -60,9 +48,9 @@ export default function App() {
   return (
     <Container maxWidth="sm">
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs value={value} onChange={handleChange} aria-label="tabs">
-          <Tab label="Your ratings" {...a11yProps(0)} />
-          <Tab label="Recommendations" {...a11yProps(1)} />
+        <Tabs value={value} onChange={handleChange} aria-label="tabs" centered>
+          <Tab icon={<Stars />} label="Your ratings" {...a11yProps(0)} />
+          <Tab icon={<Recommend />} label="Recommendations" {...a11yProps(1)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>

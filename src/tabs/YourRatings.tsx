@@ -10,11 +10,11 @@ import {
 } from "@mui/material";
 
 const rows: [string, number][] = [
-  ["Frozen yoghurt", 5],
-  ["Ice cream sandwich", 2],
-  ["Eclair", 3],
-  ["Cupcake", 4],
-  ["Gingerbread", 2],
+  ["Sausa Weizen", 5],
+  ["Red Moon", 2],
+  ["Black Horse Black Beer", 3],
+  ["Sausa Pils", 4],
+  ["Cauldron DIPA", 2],
 ];
 
 export default function YourRatings() {

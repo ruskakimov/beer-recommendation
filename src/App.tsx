@@ -60,11 +60,7 @@ export default function App() {
   return (
     <Container maxWidth="sm">
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="tabs"
-        >
+        <Tabs value={value} onChange={handleChange} aria-label="tabs">
           <Tab label="Your ratings" {...a11yProps(0)} />
           <Tab label="Recommendations" {...a11yProps(1)} />
         </Tabs>

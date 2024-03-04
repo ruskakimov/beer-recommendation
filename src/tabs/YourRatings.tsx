@@ -1,5 +1,6 @@
 import {
   Paper,
+  Rating,
   Table,
   TableBody,
   TableCell,
@@ -8,7 +9,7 @@ import {
   TableRow,
 } from "@mui/material";
 
-const rows = [
+const rows: [string, number][] = [
   ["Frozen yoghurt", 5],
   ["Ice cream sandwich", 2],
   ["Eclair", 3],
@@ -35,7 +36,15 @@ export default function YourRatings() {
               <TableCell component="th" scope="row">
                 {name}
               </TableCell>
-              <TableCell align="right">{rating}</TableCell>
+              <TableCell align="right">
+                <Rating
+                  name={name}
+                  value={rating}
+                  // onChange={(event, newValue) => {
+                  //   setValue(newValue);
+                  // }}
+                />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

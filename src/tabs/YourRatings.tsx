@@ -7,6 +7,7 @@ import {
   DialogContent,
   DialogTitle,
   FormControl,
+  IconButton,
   ListSubheader,
   Paper,
   Popper,
@@ -26,6 +27,8 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { ListChildComponentProps, VariableSizeList } from "react-window";
+
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import React from "react";
 import beers from "../beers.json";
@@ -82,6 +85,7 @@ export default function YourRatings() {
             <TableRow>
               <TableCell>Beer</TableCell>
               <TableCell align="right">Rating</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -103,6 +107,14 @@ export default function YourRatings() {
                       }
                     }}
                   />
+                </TableCell>
+                <TableCell align="right">
+                  <IconButton
+                    aria-label="delete"
+                    onClick={() => onDelete(index)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
                 </TableCell>
               </TableRow>
             ))}

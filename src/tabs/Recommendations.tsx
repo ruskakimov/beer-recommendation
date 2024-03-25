@@ -21,13 +21,17 @@ const rows: [string, number][] = [
 export default function Recommendations() {
   return (
     <div>
+      <div style={{ marginBottom: "1rem", textAlign: "center" }}>
+        <Button variant="contained" onClick={() => {}}>
+          Refresh
+        </Button>
+      </div>
       <TableContainer component={Paper}>
         <Table aria-label="rating table">
           <TableHead>
             <TableRow>
               <TableCell>Beer</TableCell>
               <TableCell align="right">Predicted rating</TableCell>
-              <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -41,9 +45,6 @@ export default function Recommendations() {
                 </TableCell>
                 <TableCell align="right">
                   <Rating name={name} value={rating} readOnly precision={0.5} />
-                </TableCell>
-                <TableCell align="right">
-                  <Button variant="text">Rate</Button>
                 </TableCell>
               </TableRow>
             ))}

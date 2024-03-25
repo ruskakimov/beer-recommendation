@@ -66,10 +66,13 @@ function useBeerRatings() {
 }
 
 export default function YourRatings() {
-  const [open, setOpen] = useState(false);
-  const [rating, setRating] = useState(5);
-
   const { ratings, onChange, onDelete, onAdd } = useBeerRatings();
+
+  // Add modal state
+  const [open, setOpen] = useState(false);
+  const [form, setForm] = useState<Partial<BeerRating>>({});
+
+  const filled = form.beer_id && form.name && form.score;
 
   return (
     <>
@@ -121,7 +124,7 @@ export default function YourRatings() {
                 disableListWrap
                 PopperComponent={StyledPopper}
                 ListboxComponent={ListboxComponent}
-                options={beers as { id: string; name: string }[]}
+                options={beers as { id: number; name: string }[]}
                 getOptionLabel={(option) => option.name}
                 sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} label="Beer" />}
@@ -129,14 +132,22 @@ export default function YourRatings() {
                   [props, option, state.index] as React.ReactNode
                 }
                 renderGroup={(params) => params as any}
+                onChange={(event, value) => {
+                  if (value)
+                    setForm((f) => ({
+                      ...f,
+                      beer_id: value.id,
+                      name: value.name,
+                    }));
+                }}
               />
             </FormControl>
             <div style={{ padding: "8px" }}>
               <Rating
                 name={"new-beer-rating"}
-                value={rating}
+                value={form.score}
                 onChange={(event, newValue) => {
-                  if (newValue) setRating(newValue);
+                  if (newValue) setForm((f) => ({ ...f, score: newValue }));
                 }}
               />
             </div>
@@ -145,13 +156,10 @@ export default function YourRatings() {
         <DialogActions>
           <Button onClick={() => setOpen(false)}>Cancel</Button>
           <Button
+            disabled={!filled}
             onClick={() => {
               setOpen(false);
-              onAdd({
-                beer_id: 1,
-                name: "Lol",
-                score: 5,
-              });
+              if (filled) onAdd({ ...(form as BeerRating) });
             }}
           >
             Add

@@ -17,7 +17,7 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const rows: [string, number][] = [
   ["Sausa Weizen", 5],
@@ -53,9 +53,9 @@ function useBeerRatings() {
     JSON.parse(localStorage.getItem(beerRatingsKey) || "[]")
   );
 
-  const updateStorage = () => {
+  useEffect(() => {
     localStorage.setItem(beerRatingsKey, JSON.stringify(data));
-  };
+  }, [data]);
 
   return {
     ratings: data,
@@ -63,17 +63,14 @@ function useBeerRatings() {
       const copy = data.slice();
       copy[index] = { ...copy[index], score: newScore };
       setData(copy);
-      updateStorage();
     },
     onDelete: (index: number) => {
       const copy = data.slice();
       copy.splice(index, 1);
       setData(copy);
-      updateStorage();
     },
     onAdd: (rating: BeerRating) => {
       setData([...data, rating]);
-      updateStorage();
     },
   };
 }

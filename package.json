@@ -14,11 +14,13 @@
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "react-window": "^1.8.10"
   },
   "devDependencies": {
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "@types/react-window": "^1.8.8",
     "@vitejs/plugin-react": "latest",
     "typescript": "latest",
     "vite": "latest"

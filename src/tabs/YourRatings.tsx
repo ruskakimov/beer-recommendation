@@ -27,9 +27,62 @@ const rows: [string, number][] = [
   ["Cauldron DIPA", 2],
 ];
 
+interface BeerRating {
+  beer_id: number;
+  name: string;
+  score: number;
+}
+
+const dummyData: BeerRating[] = [
+  {
+    beer_id: 1,
+    name: "Sausa Weizen",
+    score: 5,
+  },
+  {
+    beer_id: 2,
+    name: "Sausa Pils",
+    score: 4,
+  },
+];
+
+const beerRatingsKey = "beer-ratings";
+
+function useBeerRatings() {
+  const [data, setData] = useState<BeerRating[]>(() =>
+    JSON.parse(localStorage.getItem(beerRatingsKey) || "[]")
+  );
+
+  const updateStorage = () => {
+    localStorage.setItem(beerRatingsKey, JSON.stringify(data));
+  };
+
+  return {
+    ratings: data,
+    onChange: (index: number, newScore: number) => {
+      const copy = data.slice();
+      copy[index] = { ...copy[index], score: newScore };
+      setData(copy);
+      updateStorage();
+    },
+    onDelete: (index: number) => {
+      const copy = data.slice();
+      copy.splice(index, 1);
+      setData(copy);
+      updateStorage();
+    },
+    onAdd: (rating: BeerRating) => {
+      setData([...data, rating]);
+      updateStorage();
+    },
+  };
+}
+
 export default function YourRatings() {
   const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(5);
+
+  const { ratings, onChange, onDelete, onAdd } = useBeerRatings();
 
   return (
     <>
@@ -42,7 +95,7 @@ export default function YourRatings() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map(([name, rating]) => (
+            {ratings.map(({ name, score }, index) => (
               <TableRow
                 key={name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -53,10 +106,12 @@ export default function YourRatings() {
                 <TableCell align="right">
                   <Rating
                     name={name}
-                    value={rating}
-                    // onChange={(event, newValue) => {
-                    //   setValue(newValue);
-                    // }}
+                    value={score}
+                    onChange={(event, newScore) => {
+                      if (newScore) {
+                        onChange(index, newScore);
+                      }
+                    }}
                   />
                 </TableCell>
               </TableRow>
@@ -94,7 +149,18 @@ export default function YourRatings() {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpen(false)}>Cancel</Button>
-          <Button onClick={() => setOpen(false)}>Add</Button>
+          <Button
+            onClick={() => {
+              setOpen(false);
+              onAdd({
+                beer_id: 1,
+                name: "Lol",
+                score: 5,
+              });
+            }}
+          >
+            Add
+          </Button>
         </DialogActions>
       </Dialog>
     </>

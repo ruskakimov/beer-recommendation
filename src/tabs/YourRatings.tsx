@@ -29,6 +29,7 @@ const rows: [string, number][] = [
 
 export default function YourRatings() {
   const [open, setOpen] = useState(false);
+  const [rating, setRating] = useState(5);
 
   return (
     <>
@@ -74,7 +75,6 @@ export default function YourRatings() {
           <Box style={{ display: "flex", flexDirection: "column" }}>
             <FormControl sx={{ m: 1, minWidth: 120 }}>
               <Autocomplete
-                disablePortal
                 id="combo-box-demo"
                 options={top100Films}
                 sx={{ width: 300 }}
@@ -84,10 +84,10 @@ export default function YourRatings() {
             <div style={{ padding: "8px" }}>
               <Rating
                 name={"new-beer-rating"}
-                value={4}
-                // onChange={(event, newValue) => {
-                //   setValue(newValue);
-                // }}
+                value={rating}
+                onChange={(event, newValue) => {
+                  if (newValue) setRating(newValue);
+                }}
               />
             </div>
           </Box>

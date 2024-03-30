@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Paper,
@@ -8,23 +9,69 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  CircularProgress,
 } from "@mui/material";
 
-const rows: [string, number][] = [
-  ["Sausa Pils", 5],
-  ["Blue Moon", 4.5],
-  ["Hoegaarden", 4],
-  ["Sausa Wels", 3.5],
-  ["Budweiser", 3.5],
-];
+import beers from "../beers.json";
 
-export default function Recommendations() {
+const beerData = beers as { id: number; name: string }[];
+
+const beerRecommendationsKey = "beer-recommendations";
+
+export default function Recommendations(props: any) {
+  const [loading, setLoading] = useState(false);
+  const [rows, setRows] = useState<[string, number][]>(
+    JSON.parse(localStorage.getItem(beerRecommendationsKey) || "") || [
+      ["No ratings yet!", 0],
+    ]
+  );
+
+  useEffect(() => {
+    localStorage.setItem(beerRecommendationsKey, JSON.stringify(rows));
+  }, [rows]);
+
+  function postRatings() {
+    setLoading(true);
+    fetch("http://localhost:5000", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ratings: localStorage.getItem("beer-ratings") }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        let recommendedBeerIDs = res.map((beer: any) => beer[1]);
+        let recommendedBeerRatings = res.map((beer: any) => beer[0]);
+
+        console.log(recommendedBeerIDs);
+        console.log(recommendedBeerRatings);
+
+        let recommendedBeers: any = [];
+
+        beerData.forEach((beer) =>
+          recommendedBeerIDs.includes(beer.id)
+            ? recommendedBeers.push([
+                beer.name,
+                recommendedBeerRatings[recommendedBeerIDs.indexOf(beer.id)],
+              ])
+            : ""
+        );
+        console.log(recommendedBeers);
+        setLoading(false);
+        setRows(recommendedBeers);
+      });
+  }
+
   return (
     <div>
       <div style={{ marginBottom: "1rem", textAlign: "center" }}>
-        <Button variant="contained" onClick={() => {}}>
-          Refresh
+        <Button variant="contained" onClick={() => postRatings()}>
+          Get Recommendations!
         </Button>
+      </div>
+      <div style={{ textAlign: "center", paddingBottom: "4px" }}>
+        {loading ? <CircularProgress color="secondary" /> : ""}
       </div>
       <TableContainer component={Paper}>
         <Table aria-label="rating table">

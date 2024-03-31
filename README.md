@@ -1,42 +1,15 @@
-# Material UI - Vite.js in TypeScript example
-
-## How to use
-
-Download the example [or clone the repo](https://github.com/mui/material-ui):
-
-<!-- #default-branch-switch -->
-
-```bash
-curl https://codeload.github.com/mui/material-ui/tar.gz/master | tar -xz --strip=2 material-ui-master/examples/material-ui-vite-ts
-cd material-ui-vite-ts
-```
-
-Install it and run:
+## To run:
 
 ```bash
 npm install
 npm run dev
 ```
 
-or:
+### Before running (ESSENTIAL, DO NOT SKIP):
 
-<!-- #default-branch-switch -->
+beer.json is the JSON file for the dataset we have used. It is 750MBs and could not hence be uploaded to this repository. Please download it from the public Google Drive link below and place it in the Backend folder before executing beer_recommendation_engine.py
 
-[![Edit on StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/mui/material-ui/tree/master/examples/material-ui-vite-ts)
-
-[![Edit on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/sandbox/github/mui/material-ui/tree/master/examples/material-ui-vite-ts)
-
-## The idea behind the example
-
-This example uses [Vite.js](https://github.com/vitejs/vite).
-It includes `@mui/material` and its peer dependencies, including [Emotion](https://emotion.sh/docs/introduction), the default style engine in Material UI v5.
-
-## What's next?
-
-<!-- #default-branch-switch -->
-
-You now have a working example project.
-You can head back to the documentation and continue by browsing the [templates](https://mui.com/material-ui/getting-started/templates/) section.
+https://drive.google.com/file/d/1Pfh9C6sSdnEXaS7OrZr0LwBx5oDIiVQ5/view?usp=sharing
 
 ## Performance results:
 
